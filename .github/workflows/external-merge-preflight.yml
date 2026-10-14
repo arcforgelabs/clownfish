@@ -41,9 +41,9 @@ jobs:
       preflight_passed: ${{ steps.outcome.outputs.preflight_passed }}
       target_repo: ${{ steps.outcome.outputs.target_repo }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version: "24"
 
@@ -59,7 +59,7 @@ jobs:
           sudo apparmor_parser -r /etc/apparmor.d/bwrap-userns-restrict
 
       - name: Cache Codex CLI and npm downloads
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: |
             ~/.npm
@@ -126,7 +126,7 @@ jobs:
 
       - name: Upload preflight artifact
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: external-merge-preflight-${{ github.run_id }}
           path: |
@@ -156,17 +156,17 @@ jobs:
       cancel-in-progress: false
       queue: max
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Download preflight artifact
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           name: external-merge-preflight-${{ github.run_id }}
           path: .projectclownfish/external-merge-preflight
 
       - name: Create GitHub App token
         id: app_token
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
         with:
           app-id: ${{ vars.CLOWNFISH_APP_ID }}
           private-key: ${{ secrets.CLOWNFISH_APP_PRIVATE_KEY }}
@@ -178,7 +178,7 @@ jobs:
 
       - name: Create ruleset inspection token
         id: rules_app_token
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
         with:
           app-id: ${{ vars.CLOWNFISH_APP_ID }}
           private-key: ${{ secrets.CLOWNFISH_APP_PRIVATE_KEY }}
@@ -205,7 +205,7 @@ jobs:
 
       - name: Upload apply artifact
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: external-merge-apply-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
