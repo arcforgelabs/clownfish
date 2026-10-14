@@ -152,7 +152,7 @@ test("publisher defaults to successful runs and exits before reviewing an empty 
   assert.match(workflow, /Publishing terminal review rejections without normal result artifacts/);
   assert.match(
     workflow,
-    /npm run publish-result[\s\S]*node scripts\/prune-inbox-jobs\.mjs --write --json[\s\S]*jobs\/openclaw\/inbox[\s\S]*jobs\/openclaw\/outbox/,
+    /npm run publish-result[\s\S]*node scripts\/prune-inbox-jobs\.mjs --write --json[\s\S]*git add[\s\S]*\n\s+jobs \\\n/,
   );
 });
 
