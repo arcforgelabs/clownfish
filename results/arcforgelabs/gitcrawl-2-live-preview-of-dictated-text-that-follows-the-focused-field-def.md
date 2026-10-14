@@ -2,57 +2,54 @@
 repo: "arcforgelabs/dictate"
 cluster_id: "gitcrawl-2-live-preview-of-dictated-text-that-follows-the-focused-field-def"
 mode: "plan"
-run_id: "38508533637-1-0"
-workflow_run_id: "38508533637"
-run_url: "https://github.com/arcforgelabs/clownfish/actions/runs/38508533637"
-head_sha: "51e6117acbac12db62c76c603d16f19aa12575b1"
+run_id: "38521956898-1-0"
+workflow_run_id: "38521956898"
+run_url: "https://github.com/arcforgelabs/clownfish/actions/runs/38521956898"
+head_sha: "397267b59bd2350eb49fe9740fc38ae2a6729562"
 workflow_conclusion: "success"
-result_status: "blocked"
-published_at: "2026-10-14T03:54:28.736Z"
-canonical: null
-canonical_issue: null
+result_status: "planned"
+published_at: "2026-10-14T06:25:31.878Z"
+canonical: "#152"
+canonical_issue: "#152"
 canonical_pr: null
-actions_total: 0
+actions_total: 4
 fix_executed: 0
 fix_failed: 0
 fix_blocked: 0
 apply_executed: 0
 apply_blocked: 0
 apply_skipped: 0
-needs_human_count: 1
+needs_human_count: 0
 ---
 
 # gitcrawl-2-live-preview-of-dictated-text-that-follows-the-focused-field-def
 
 Repo: arcforgelabs/dictate
 
-Run: [https://github.com/arcforgelabs/clownfish/actions/runs/38508533637](https://github.com/arcforgelabs/clownfish/actions/runs/38508533637)
+Run: [https://github.com/arcforgelabs/clownfish/actions/runs/38521956898](https://github.com/arcforgelabs/clownfish/actions/runs/38521956898)
 
 Workflow conclusion: success
 
-Worker result: blocked
+Worker result: planned
 
-Canonical: unknown
+Canonical: #152
 
 ## Summary
 
-{"type":"thread.started","thread_id":"01a1388b-303c-77f2-a524-6c60b866d17c"}
-{"type":"turn.started"}
-{"type":"error","message":"{\"type\":\"error\",\"status\":400,\"error\":{\"type\":\"invalid_request_error\",\"code\":\"pricing_required\",\"message\":\"hosted tool fees have no complete bounded price; choose a token-priced request or configure a fixed policy request price\"}}"}
-{"type":"turn.failed","error":{"message":"{\"type\":\"error\",\"status\":400,\"error\":{\"type\":\"invalid_request_error\",\"code\":\"pricing_required\",\"message\":\"hosted tool fees have no complete bounded price; choose a token-priced request or configure a fixed policy request price\"}}"}}
+Keep #152 as the live canonical. #150 and #151 describe related but distinct work, so no closures are recommended. Quarantine the hydrated security-sensitive #149 separately.
 
 ## Impact
 
 | Metric | Count |
 | --- | ---: |
-| Worker actions | 0 |
+| Worker actions | 4 |
 | Fix executed | 0 |
 | Fix failed | 0 |
 | Fix blocked | 0 |
 | Applied executions | 0 |
 | Apply blocked | 0 |
 | Apply skipped | 0 |
-| Needs human | 1 |
+| Needs human | 0 |
 
 ## Fix Execution Actions
 
@@ -76,11 +73,11 @@ Canonical: unknown
 
 | Target | Action | Status | Classification | Reason |
 | --- | --- | --- | --- | --- |
-| _None_ |  |  |  |  |
+| #150 | keep_related | planned | related | Retain #150 for the foundational recording overlay and preview scope; keep the more specific follow-focus requirement tracked in #152. |
+| #151 | keep_related | planned | related | Keep the no-focused-field behavior as separate related work; it is not a duplicate of live preview positioning. |
+| #152 | keep_canonical | planned | canonical | The representative remains open and is the clearest canonical for the cluster's specific live-preview-following-focus requirement. |
+| #149 | route_security | planned | security_sensitive | Route this exact security-sensitive linked item to central security handling; it does not block classification of the non-security candidates. |
 
 ## Needs Human
 
-- {"type":"thread.started","thread_id":"01a1388b-303c-77f2-a524-6c60b866d17c"}
-{"type":"turn.started"}
-{"type":"error","message":"{\"type\":\"error\",\"status\":400,\"error\":{\"type\":\"invalid_request_error\",\"code\":\"pricing_required\",\"message\":\"hosted tool fees have no complete bounded price; choose a token-priced request or configure a fixed policy request price\"}}"}
-{"type":"turn.failed","error":{"message":"{\"type\":\"error\",\"status\":400,\"error\":{\"type\":\"invalid_request_error\",\"code\":\"pricing_required\",\"message\":\"hosted tool fees have no complete bounded price; choose a token-priced request or configure a fixed policy request price\"}}"}}
+- none

@@ -1,0 +1,56 @@
+{
+  "repo": "arcforgelabs/dictate",
+  "cluster_id": "gitcrawl-3-move-the-dictate-repo-to-iamsamuelrodda",
+  "mode": "plan",
+  "run_id": "38521956898-1-1",
+  "workflow_run_id": "38521956898",
+  "run_attempt": "1",
+  "matrix_index": "1",
+  "run_url": "https://github.com/arcforgelabs/clownfish/actions/runs/38521956898",
+  "head_sha": "397267b59bd2350eb49fe9740fc38ae2a6729562",
+  "workflow_conclusion": "success",
+  "workflow_status": "completed",
+  "workflow_created_at": "2026-10-14T06:23:48Z",
+  "workflow_updated_at": "2026-10-14T06:24:56Z",
+  "result_status": "planned",
+  "source_job": "jobs/arcforgelabs/inbox/gitcrawl-3-move-the-dictate-repo-to-iamsamuelrodda.md",
+  "published_at": "2026-10-14T06:25:31.880Z",
+  "canonical": null,
+  "canonical_issue": null,
+  "canonical_pr": null,
+  "summary": "Quarantine #135 as security-sensitive. Keep #164 open as a distinct, related public-pages follow-up; no canonical non-security item or mutation is recommended.",
+  "actions": [
+    {
+      "target": "#135",
+      "action": "route_security",
+      "status": "planned",
+      "classification": "security_sensitive",
+      "canonical": null,
+      "candidate_fix": null,
+      "reason": "Route this exact issue to central security handling; do not close, comment on, label, merge, or create a fix for it."
+    },
+    {
+      "target": "#164",
+      "action": "keep_related",
+      "status": "planned",
+      "classification": "related",
+      "canonical": null,
+      "candidate_fix": null,
+      "reason": "Keep #164 open as a distinct related follow-up. The job blocks fix and raise_pr actions, and the issue does not establish that it is a duplicate of #135."
+    }
+  ],
+  "action_counts": {
+    "route_security": 1,
+    "keep_related": 1
+  },
+  "action_status_counts": {
+    "planned": 2
+  },
+  "fix_counts": {},
+  "apply_counts": {},
+  "needs_human": [],
+  "repair_candidate": null,
+  "fix_actions": [],
+  "apply_actions": [],
+  "apply_audit_actions": []
+}
