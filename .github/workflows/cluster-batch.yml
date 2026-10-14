@@ -19,17 +19,17 @@ on:
           - plan
       runner:
         description: "Runner label for cluster planning/review work"
-        required: true
+        required: false
         default: ""
         type: string
       execution_runner:
         description: "Reserved for parity with cluster-worker dispatch"
-        required: true
+        required: false
         default: ""
         type: string
       model:
         description: "Codex model"
-        required: true
+        required: false
         default: ""
         type: string
       max_parallel:
