@@ -693,9 +693,11 @@ function formatNormalizedRef(ref) {
 }
 
 async function fetchMainBranch(repo) {
-  const branch = await ghJson(["api", `repos/${repo}/branches/main`]);
+  // Not every target repository names its default branch main.
+  const name = (await ghJson(["api", `repos/${repo}`])).default_branch || "main";
+  const branch = await ghJson(["api", `repos/${repo}/branches/${encodeURIComponent(name)}`]);
   return {
-    name: "main",
+    name,
     sha: branch.commit?.sha,
     url: branch._links?.html,
   };

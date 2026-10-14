@@ -29,6 +29,7 @@ const write = (value) => process.stdout.write(JSON.stringify(value));
 const comment = { id: 41, html_url: "https://github.com/openclaw/openclaw/issues/1#issuecomment-41", user: { login: "maintainer" }, author_association: "MEMBER", body: "INVESTIGATION_DISCUSSION codex", created_at: "${updatedAt}", updated_at: "${updatedAt}" };
 if (args[0] === "pr" && args[1] === "checks") write([]);
 else if (args[0] !== "api" || args.includes("--method") || args.includes("-X")) process.exit(1);
+else if (/^repos\\/[^/]+\\/[^/]+$/.test(args[1])) write({ default_branch: "main" });
 else if (args[1].endsWith("/branches/main")) write({ commit: { sha: "${head}" } });
 else if (args[1].endsWith("/issues/1")) write({ state: "open", title: "fixture", html_url: "https://github.com/openclaw/openclaw/pull/1", body: "INVESTIGATION_BODY", labels: [], comments: 1, updated_at: "${updatedAt}", pull_request: {} });
 else if (args[1].endsWith("/issues/1/comments")) write([[comment]]);
