@@ -29,17 +29,17 @@ on:
       runner:
         description: "Runner label for cluster planning/review work"
         required: true
-        default: blacksmith-4vcpu-ubuntu-2404
+        default: ""
         type: string
       execution_runner:
         description: "Runner label for fix/apply execution work"
         required: true
-        default: blacksmith-16vcpu-ubuntu-2404
+        default: ""
         type: string
       model:
         description: "Codex model"
         required: true
-        default: gpt-5.5
+        default: ""
         type: string
       dry_run:
         description: "Render prompt and write a dry result without invoking Codex"
@@ -113,8 +113,8 @@ jobs:
           CLIENT_PAYLOAD: ${{ toJson(github.event.client_payload) }}
           INPUT_JOB: ${{ github.event.inputs.job || '' }}
           INPUT_MODE: ${{ github.event.inputs.mode || 'plan' }}
-          INPUT_RUNNER: ${{ github.event.inputs.runner || 'blacksmith-4vcpu-ubuntu-2404' }}
-          INPUT_EXECUTION_RUNNER: ${{ github.event.inputs.execution_runner || 'blacksmith-16vcpu-ubuntu-2404' }}
+          INPUT_RUNNER: ${{ github.event.inputs.runner || vars.CLOWNFISH_WORKER_RUNNER || 'blacksmith-4vcpu-ubuntu-2404' }}
+          INPUT_EXECUTION_RUNNER: ${{ github.event.inputs.execution_runner || vars.CLOWNFISH_EXECUTION_RUNNER || 'blacksmith-16vcpu-ubuntu-2404' }}
           INPUT_MODEL: ${{ github.event.inputs.model || vars.CLOWNFISH_MODEL || 'gpt-5.5' }}
           INPUT_DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
           INPUT_HYDRATE_COMMENTS: ${{ github.event.inputs.hydrate_comments || '' }}
@@ -373,10 +373,24 @@ jobs:
           codex --version
 
       - name: Authenticate Codex
+        env:
+          CLOWNFISH_CODEX_BASE_URL: ${{ vars.CLOWNFISH_CODEX_BASE_URL || '' }}
         run: |
           test -n "${OPENAI_API_KEY:-}"
           test -n "${CODEX_API_KEY:-}"
           printenv OPENAI_API_KEY | codex login --with-api-key >/dev/null
+          # A model gateway (for example ClawRouter) can stand in front of OpenAI.
+          if [ -n "$CLOWNFISH_CODEX_BASE_URL" ]; then
+            case "$CLOWNFISH_CODEX_BASE_URL" in
+              https://*) ;;
+              *) echo "CLOWNFISH_CODEX_BASE_URL must be an https URL" >&2; exit 1 ;;
+            esac
+            codex_home="${CODEX_HOME:-$HOME/.codex}"
+            mkdir -p "$codex_home"
+            # Top-level key first, so it never lands inside an existing table.
+            { printf 'openai_base_url = %s\n' "$(jq -Rn --arg url "$CLOWNFISH_CODEX_BASE_URL" '$url')"; cat "$codex_home/config.toml" 2>/dev/null || true; } > "$codex_home/config.toml.new"
+            mv "$codex_home/config.toml.new" "$codex_home/config.toml"
+          fi
 
       - name: Validate job
         run: npm run validate:job -- "${{ needs.prepare.outputs.job }}"
@@ -579,10 +593,24 @@ jobs:
           codex --version
 
       - name: Authenticate Codex
+        env:
+          CLOWNFISH_CODEX_BASE_URL: ${{ vars.CLOWNFISH_CODEX_BASE_URL || '' }}
         run: |
           test -n "${OPENAI_API_KEY:-}"
           test -n "${CODEX_API_KEY:-}"
           printenv OPENAI_API_KEY | codex login --with-api-key >/dev/null
+          # A model gateway (for example ClawRouter) can stand in front of OpenAI.
+          if [ -n "$CLOWNFISH_CODEX_BASE_URL" ]; then
+            case "$CLOWNFISH_CODEX_BASE_URL" in
+              https://*) ;;
+              *) echo "CLOWNFISH_CODEX_BASE_URL must be an https URL" >&2; exit 1 ;;
+            esac
+            codex_home="${CODEX_HOME:-$HOME/.codex}"
+            mkdir -p "$codex_home"
+            # Top-level key first, so it never lands inside an existing table.
+            { printf 'openai_base_url = %s\n' "$(jq -Rn --arg url "$CLOWNFISH_CODEX_BASE_URL" '$url')"; cat "$codex_home/config.toml" 2>/dev/null || true; } > "$codex_home/config.toml.new"
+            mv "$codex_home/config.toml.new" "$codex_home/config.toml"
+          fi
 
       - name: Download worker artifacts
         uses: actions/download-artifact@v8

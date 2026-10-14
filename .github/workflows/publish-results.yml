@@ -162,9 +162,7 @@ jobs:
           git add \
             README.md \
             results \
-            jobs/openclaw/inbox \
-            jobs/openclaw/outbox \
-            jobs/openclaw/closed \
+            jobs \
             apply-report.json
           if git diff --cached --quiet; then
             echo "No result changes"
