@@ -60,7 +60,7 @@ test("standalone preflight and comment-router merges share the repository mutati
 
 test("serialized workflow artifacts include hidden ProjectClownfish paths", () => {
   for (const workflow of [clusterWorkflow, externalWorkflow, commentRouterWorkflow]) {
-    const uploads = workflow.match(/uses: actions\/upload-artifact@(?:v7|[0-9a-f]{40} # v7)/g) ?? [];
+    const uploads = workflow.match(/uses: actions\/upload-artifact@v7/g) ?? [];
     const hiddenOptIns = workflow.match(/include-hidden-files: true/g) ?? [];
     assert.ok(uploads.length > 0);
     assert.equal(hiddenOptIns.length, uploads.length);
@@ -75,10 +75,10 @@ test("producer artifacts survive failed-job reruns", () => {
     [commentRouterWorkflow, "comment-router-merge-scope"],
   ]) {
     const producer = new RegExp(
-      `uses: actions/upload-artifact@(?:v7|[0-9a-f]{40} # v7)[\\s\\S]*?name: ${name}-\\$\\{\\{ github\\.run_id \\}\\}[\\s\\S]*?overwrite: true`,
+      `uses: actions/upload-artifact@v7[\\s\\S]*?name: ${name}-\\$\\{\\{ github\\.run_id \\}\\}[\\s\\S]*?overwrite: true`,
     );
     const consumer = new RegExp(
-      `uses: actions/download-artifact@(?:v8|[0-9a-f]{40} # v8)[\\s\\S]*?name: ${name}-\\$\\{\\{ github\\.run_id \\}\\}`,
+      `uses: actions/download-artifact@v8[\\s\\S]*?name: ${name}-\\$\\{\\{ github\\.run_id \\}\\}`,
     );
     assert.match(workflow, producer);
     assert.match(workflow, consumer);
